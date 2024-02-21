@@ -69,7 +69,6 @@ services:
       - kafka1
       - kafka-schema-registry
 
-
   kafka-connect:
     image: confluentinc/cp-kafka-connect:7.3.2
     hostname: kafka-connect
@@ -113,6 +112,8 @@ services:
 
   
 
+
+
   ksqldb-server:
     image: confluentinc/cp-ksqldb-server:7.3.2
     hostname: ksqldb-server
@@ -138,16 +139,12 @@ services:
       service: conduktor-platform
       file: conduktor.yml
 
-  kafka-producer:
-    build:
-      context: .
-      dockerfile: ./producer/Dockerfile
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"  # RabbitMQ
+      - "15672:15672"  # RabbitMQ Management UI
 
-    depends_on:
-       - conduktor-platform
-
-  kafka-consumer:
-    build: consumer
 
 volumes:
   pg_data: {}
