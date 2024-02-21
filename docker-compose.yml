@@ -145,6 +145,16 @@ services:
       - "5672:5672"  # RabbitMQ
       - "15672:15672"  # RabbitMQ Management UI
 
+  appDB:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=iag_password
+      - POSTGRES_USER=iag_user
+      - POSTGRES_DB=iag
 
 volumes:
   pg_data: {}
